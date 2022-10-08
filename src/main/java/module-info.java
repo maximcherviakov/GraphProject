@@ -1,6 +1,7 @@
 module com.example.graphproject {
     requires javafx.controls;
     requires javafx.fxml;
+    requires org.jgrapht.core;
 
 
     opens com.example.graphproject to javafx.fxml;
