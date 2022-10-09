@@ -45,6 +45,11 @@
             <artifactId>jgrapht-core</artifactId>
             <version>1.5.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.jgrapht</groupId>
+            <artifactId>jgrapht-io</artifactId>
+            <version>1.4.0</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -67,7 +72,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.example.graphproject/com.example.graphproject.Application</mainClass>
+                            <mainClass>com.example.graphproject/com.example.graphproject.GraphApplication</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

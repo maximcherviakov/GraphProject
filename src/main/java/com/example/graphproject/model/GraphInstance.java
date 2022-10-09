@@ -5,18 +5,17 @@ import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleGraph;
 
 public class GraphInstance {
-    private static GraphInstance instance = null;
-    private Graph<Integer, DefaultEdge> graph = new SimpleGraph<>(DefaultEdge.class);
+    private static Graph<Integer, DefaultEdge> graph;
 
     private GraphInstance() {
 
     }
 
-    public GraphInstance getInstance() {
-        if (instance == null) {
-            instance = new GraphInstance();
+    public static Graph<Integer, DefaultEdge> getInstance() {
+        if (graph == null) {
+            graph = new SimpleGraph<>(DefaultEdge.class);
         }
-        return instance;
+        return graph;
     }
 
     public void addVertex(Integer integer) throws Exception {

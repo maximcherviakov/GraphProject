@@ -3,8 +3,9 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 
-<AnchorPane style="-fx-background-color: #c7991c;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane style="-fx-background-color: #c7991c;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.graphproject.controller.MainController">
    <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <columnConstraints>
          <ColumnConstraints />
@@ -23,7 +24,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </HBox.margin>
             </TextField>
-            <Button mnemonicParsing="false" text="Button">
+            <Button fx:id="addVertex" mnemonicParsing="false" onAction="#onAddVertexButtonClick" text="Add vertex">
                <HBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </HBox.margin>
@@ -73,13 +74,11 @@
          </HBox>
       </VBox>
       <ScrollPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
-         <AnchorPane maxHeight="1.7976931348623157E308"
-                     maxWidth="1.7976931348623157E308"
-                     minHeight="-Infinity"
-                     minWidth="-Infinity"
-                     prefHeight="100.0"
-                     prefWidth="100.0"
-                     style="-fx-background-color: #eb424d;"/>
+         <AnchorPane fx:id="graphCanvas" style="-fx-background-color: #eb424d;">
+            <children>
+               <Circle fill="DODGERBLUE" layoutX="400.0" layoutY="400.0" radius="26.0" stroke="BLACK" strokeType="INSIDE" />
+            </children>
+         </AnchorPane>
       </ScrollPane>
    </GridPane>
 </AnchorPane>
