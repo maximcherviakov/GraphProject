@@ -1,0 +1,42 @@
+.button {
+    /*-fx-background-color: #82D9D9;*/
+    /*-fx-background-color: #5897ee;*/
+    -fx-background-color: #367BF5;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: Roboto Light;
+    -fx-font-size: 14;
+    -fx-font-weight: Bold;
+    -fx-background-radius: 4;
+}
+
+.remove-button {
+    -fx-background-color: #F23535;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: Roboto Light;
+    -fx-font-size: 14;
+    -fx-font-weight: Bold;
+    -fx-background-radius: 4;
+}
+
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-font-family: Roboto Light;
+    -fx-font-size: 14;
+    -fx-background-radius: 4
+}
+
+.anchor-pane {
+    -fx-background-color: #d3dceb;
+}
+
+.vbox {
+    -fx-background-color: #d3dceb;
+}
+
+.scroll-pane {
+    -fx-background-color: #F0F2F2;
+}
+
+.inner-anchor-pane {
+    -fx-background-color: #cbd6d6;
+}

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
+<?import javafx.scene.canvas.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
 
-<AnchorPane style="-fx-background-color: #c7991c;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.graphproject.controller.MainController">
-   <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.graphproject.controller.MainController">
+   <GridPane styleClass="anchor-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <columnConstraints>
          <ColumnConstraints />
          <ColumnConstraints hgrow="SOMETIMES" />
@@ -14,71 +14,158 @@
       <rowConstraints>
          <RowConstraints vgrow="SOMETIMES" />
       </rowConstraints>
-      <VBox fx:id="button_panel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="0" GridPane.rowIndex="0">
+      <VBox fx:id="button_panel" styleClass="vbox" GridPane.columnIndex="0" GridPane.rowIndex="0">
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
-         <HBox>
-            <TextField prefHeight="26.0" prefWidth="109.0">
-               <HBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </HBox.margin>
-            </TextField>
-            <Button fx:id="addVertex" mnemonicParsing="false" onAction="#onAddVertexButtonClick" text="Add vertex">
-               <HBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </HBox.margin>
+         <VBox alignment="CENTER" layoutX="15.0" layoutY="159.0">
+            <padding>
+               <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+            </padding>
+            <GridPane>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                  <ColumnConstraints/>
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+               </rowConstraints>
+               <VBox.margin>
+                  <Insets bottom="2.0"/>
+               </VBox.margin>
+               <TextField>
+                  <GridPane.margin>
+                     <Insets/>
+                  </GridPane.margin>
+               </TextField>
+            </GridPane>
+            <Button alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                    text="Add vertex">
+               <VBox.margin>
+                  <Insets/>
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="6.0" left="6.0" right="6.0" top="6.0"/>
+               </padding>
             </Button>
-         </HBox>
-         <HBox>
-            <children>
-               <TextField prefHeight="26.0" prefWidth="109.0">
-                  <HBox.margin>
-                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                  </HBox.margin>
+         </VBox>
+         <VBox alignment="CENTER">
+            <padding>
+               <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+            </padding>
+            <GridPane>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+               </rowConstraints>
+               <VBox.margin>
+                  <Insets bottom="2.0"/>
+               </VBox.margin>
+               <TextField>
+                  <GridPane.margin>
+                     <Insets right="2.0"/>
+                  </GridPane.margin>
                </TextField>
-               <Button mnemonicParsing="false" text="Button">
-                  <HBox.margin>
-                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                  </HBox.margin>
-               </Button>
-            </children>
-         </HBox>
-         <HBox>
-            <children>
-               <TextField prefHeight="26.0" prefWidth="109.0">
-                  <HBox.margin>
-                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                  </HBox.margin>
+               <TextField GridPane.columnIndex="1">
+                  <GridPane.margin>
+                     <Insets left="2.0"/>
+                  </GridPane.margin>
                </TextField>
-               <Button mnemonicParsing="false" text="Button">
-                  <HBox.margin>
-                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                  </HBox.margin>
-               </Button>
-            </children>
-         </HBox>
-         <HBox>
-            <children>
-               <TextField prefHeight="26.0" prefWidth="109.0">
-                  <HBox.margin>
-                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                  </HBox.margin>
+            </GridPane>
+            <Button alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                    text="Add edge">
+               <padding>
+                  <Insets bottom="6.0" left="6.0" right="6.0" top="6.0"/>
+               </padding>
+            </Button>
+         </VBox>
+         <VBox alignment="CENTER" layoutX="15.0" layoutY="15.0">
+            <padding>
+               <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+            </padding>
+            <GridPane>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                  <ColumnConstraints/>
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+               </rowConstraints>
+               <VBox.margin>
+                  <Insets bottom="2.0"/>
+               </VBox.margin>
+               <TextField>
+                  <GridPane.margin>
+                     <Insets/>
+                  </GridPane.margin>
                </TextField>
-               <Button mnemonicParsing="false" text="Button">
-                  <HBox.margin>
-                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                  </HBox.margin>
-               </Button>
-            </children>
-         </HBox>
+            </GridPane>
+            <Button alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                    text="Remove vertex">
+               <VBox.margin>
+                  <Insets/>
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="6.0" left="6.0" right="6.0" top="6.0"/>
+               </padding>
+            </Button>
+         </VBox>
+         <VBox alignment="CENTER" layoutX="15.0" layoutY="80.0">
+            <padding>
+               <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+            </padding>
+            <GridPane>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+               </rowConstraints>
+               <VBox.margin>
+                  <Insets bottom="2.0"/>
+               </VBox.margin>
+               <TextField>
+                  <GridPane.margin>
+                     <Insets right="2.0"/>
+                  </GridPane.margin>
+               </TextField>
+               <TextField GridPane.columnIndex="1">
+                  <GridPane.margin>
+                     <Insets left="2.0"/>
+                  </GridPane.margin>
+               </TextField>
+            </GridPane>
+            <Button alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                    text="Remove edge">
+               <VBox.margin>
+                  <Insets/>
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="6.0" left="6.0" right="6.0" top="6.0"/>
+               </padding>
+            </Button>
+         </VBox>
+         <VBox alignment="CENTER" layoutX="15.0" layoutY="209.0">
+            <padding>
+               <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+            </padding>
+            <Button alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                    styleClass="remove-button" text="Clear graph">
+               <VBox.margin>
+                  <Insets top="40.0"/>
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="6.0" left="6.0" right="6.0" top="6.0"/>
+               </padding>
+            </Button>
+         </VBox>
       </VBox>
-      <ScrollPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
-         <AnchorPane fx:id="graphCanvas" style="-fx-background-color: #eb424d;">
-            <children>
-               <Circle fill="DODGERBLUE" layoutX="400.0" layoutY="400.0" radius="26.0" stroke="BLACK" strokeType="INSIDE" />
-            </children>
-         </AnchorPane>
+      <ScrollPane prefHeight="200.0" prefWidth="200.0" stylesheets="@styles.css" GridPane.columnIndex="1" GridPane.rowIndex="0">
+         <Canvas id="graphCanvas" styleClass="inner-anchor-pane" width="1000.0" height="1000.0" />
       </ScrollPane>
    </GridPane>
 </AnchorPane>
