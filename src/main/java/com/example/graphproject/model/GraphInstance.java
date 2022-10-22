@@ -3,14 +3,14 @@ package com.example.graphproject.model;
 import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleGraph;
-import org.jgrapht.nio.GraphImporter;
 
-import java.util.HashMap;
-import java.util.Objects;
+import java.util.*;
 
 public class GraphInstance {
-    private static SimpleGraph<Integer, DefaultEdge> graph = new SimpleGraph<>(DefaultEdge.class);
-    private static HashMap<Integer, Point> mapOfPoints = new HashMap<>();
+    private static final double MAX_WIDTH_OF_PLANE = 1000;
+    private static final double MAX_HEIGHT_OF_PLANE = 1000;
+
+    private static SimpleGraph<Vertex, DefaultEdge> graph = new SimpleGraph<>(DefaultEdge.class);
     private static GraphInstance instance;
 
     private GraphInstance() {
@@ -24,134 +24,71 @@ public class GraphInstance {
         return instance;
     }
 
-    public Graph<Integer, DefaultEdge> getGraph() {
+    public Graph<Vertex, DefaultEdge> getGraph() {
         return graph;
     }
 
-    public Point getCoordinatesByVertexValue(Integer value) {
-        return mapOfPoints.get(value);
-    }
-
-    public void addVertex(Integer value) throws Exception {
-        if (!graph.containsVertex(value)) {
-            graph.addVertex(value);
-            mapOfPoints.put(value, new Point(Math.random(), Math.random()));
+    public void addVertex(Integer value) throws IllegalArgumentException {
+        Vertex vertex = new Vertex(value, Math.random() * MAX_WIDTH_OF_PLANE, Math.random() * MAX_HEIGHT_OF_PLANE);
+        if (!graph.containsVertex(vertex)) {
+            graph.addVertex(vertex);
         } else {
-            throw new Exception("Here is a duplicate of a vertex!");
+            throw new IllegalArgumentException("Vertex with this value is already exist!");
         }
     }
 
-    public void addEdge(Integer integer1, Integer integer2) throws Exception {
-        if (!graph.containsEdge(integer1, integer2)) {
-            graph.addEdge(integer1, integer2);
-        } else {
-            throw new Exception("Here is a duplicate of an edge!");
+    public void addEdge(Integer value1, Integer value2) throws IllegalArgumentException {
+        ArrayList<Object> vertices = new ArrayList<>(Arrays.asList(graph.vertexSet().toArray()));
+        Vertex vertex1;
+        Vertex vertex2;
+
+        try {
+            vertex1 = (Vertex) vertices.get(vertices.indexOf(new Vertex(value1)));
+            vertex2 = (Vertex) vertices.get(vertices.indexOf(new Vertex(value2)));
+        } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+            throw new IllegalArgumentException("Vertex with this value does not exist!");
         }
+
+        if (!graph.containsEdge(vertex1, vertex2)) {
+            graph.addEdge(vertex1, vertex2);
+        } else {
+            throw new IllegalArgumentException("Here is a duplicate of an edge!");
+        }
+    }
+
+    public void removeVertex(Integer value) throws IllegalArgumentException {
+        Vertex vertex = new Vertex(value);
+        if (!graph.removeVertex(vertex)) {
+            throw new IllegalArgumentException("Vertex with this value does not exist!");
+        }
+    }
+
+    public void removeEdge(Integer value1, Integer value2) {
+        Vertex vertex1 = new Vertex(value1);
+        Vertex vertex2 = new Vertex(value2);
+
+        if (graph.containsEdge(vertex1, vertex2)) {
+            graph.removeEdge(vertex1, vertex2);
+        } else {
+            throw new IllegalArgumentException("This edge does not exist!");
+        }
+    }
+
+    public void clearGraph() {
+        graph = new SimpleGraph<Vertex, DefaultEdge>(DefaultEdge.class);
     }
 
     public void printGraph() {
         System.out.println("Vertices:");
 
-        for (Integer i : graph.vertexSet()) {
-            System.out.println(i);
+        for (Vertex vertex : graph.vertexSet()) {
+            System.out.println(vertex.toString());
         }
 
         System.out.println("Edges:");
 
-        for (Integer i : graph.vertexSet()) {
-            System.out.println(i);
-        }
-    }
-
-    private class Point {
-        private double x;
-        private double y;
-
-        public Point(double x, double y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        public double getX() {
-            return x;
-        }
-
-        public void setX(double x) {
-            this.x = x;
-        }
-
-        public double getY() {
-            return y;
-        }
-
-        public void setY(double y) {
-            this.y = y;
-        }
-
-        @Override
-        public String toString() {
-            return "Point{" +
-                    "x=" + x +
-                    ", y=" + y +
-                    '}';
-        }
-    }
-
-    private class Vertex {
-        private int value;
-        private double x;
-        private double y;
-
-        public Vertex(int value, double x, double y) {
-            this.value = value;
-            this.x = x;
-            this.y = y;
-        }
-
-        public int getValue() {
-            return value;
-        }
-
-        public void setValue(int value) {
-            this.value = value;
-        }
-
-        public double getX() {
-            return x;
-        }
-
-        public void setX(double x) {
-            this.x = x;
-        }
-
-        public double getY() {
-            return y;
-        }
-
-        public void setY(double y) {
-            this.y = y;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            Vertex vertex = (Vertex) o;
-            return value == vertex.value;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(value);
-        }
-
-        @Override
-        public String toString() {
-            return "Vertex{" +
-                    "value=" + value +
-                    ", x=" + x +
-                    ", y=" + y +
-                    '}';
+        for (DefaultEdge edge : graph.edgeSet()) {
+            System.out.println(edge.toString());
         }
     }
 }

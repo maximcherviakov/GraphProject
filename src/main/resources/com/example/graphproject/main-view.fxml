@@ -32,7 +32,7 @@
                <VBox.margin>
                   <Insets bottom="2.0" />
                </VBox.margin>
-               <TextField>
+               <TextField fx:id="addVertexValueField">
                   <GridPane.margin>
                      <Insets />
                   </GridPane.margin>
@@ -62,18 +62,18 @@
                <VBox.margin>
                   <Insets bottom="2.0" />
                </VBox.margin>
-               <TextField>
+               <TextField fx:id="addEdgeSourceValueField">
                   <GridPane.margin>
                      <Insets right="2.0" />
                   </GridPane.margin>
                </TextField>
-               <TextField GridPane.columnIndex="1">
+               <TextField fx:id="addEdgeTargetValueField" GridPane.columnIndex="1">
                   <GridPane.margin>
                      <Insets left="2.0" />
                   </GridPane.margin>
                </TextField>
             </GridPane>
-            <Button alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Add edge">
+            <Button alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onAddEdgeButtonClick" text="Add edge">
                <padding>
                   <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
                </padding>
@@ -94,13 +94,13 @@
                <VBox.margin>
                   <Insets bottom="2.0" />
                </VBox.margin>
-               <TextField>
+               <TextField fx:id="removeVertexValueField">
                   <GridPane.margin>
                      <Insets />
                   </GridPane.margin>
                </TextField>
             </GridPane>
-            <Button alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Remove vertex">
+            <Button alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onRemoveVertexButtonClick" text="Remove vertex">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -124,18 +124,18 @@
                <VBox.margin>
                   <Insets bottom="2.0" />
                </VBox.margin>
-               <TextField>
+               <TextField fx:id="removeEdgeSourceValueField">
                   <GridPane.margin>
                      <Insets right="2.0" />
                   </GridPane.margin>
                </TextField>
-               <TextField GridPane.columnIndex="1">
+               <TextField fx:id="removeEdgeTargetValueField" GridPane.columnIndex="1">
                   <GridPane.margin>
                      <Insets left="2.0" />
                   </GridPane.margin>
                </TextField>
             </GridPane>
-            <Button alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Remove edge">
+            <Button alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onRemoveEdgeButtonClick" text="Remove edge">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -148,7 +148,7 @@
             <padding>
                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
             </padding>
-            <Button alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#clearGraph" styleClass="remove-button" text="Clear graph">
+            <Button alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClearGraphButtonClick" styleClass="remove-button" text="Clear graph">
                <VBox.margin>
                   <Insets top="40.0" />
                </VBox.margin>
