@@ -3,6 +3,7 @@ module com.example.graphproject {
     requires javafx.fxml;
     requires org.jgrapht.core;
     requires org.jgrapht.io;
+    requires json.simple;
 
 
     opens com.example.graphproject to javafx.fxml;

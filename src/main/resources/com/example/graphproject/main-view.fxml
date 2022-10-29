@@ -159,7 +159,7 @@
          </VBox>
       </VBox>
       <ScrollPane prefHeight="200.0" prefWidth="200.0" stylesheets="@styles.css" GridPane.columnIndex="1" GridPane.rowIndex="0">
-         <AnchorPane fx:id="graphCanvas" prefHeight="1000.0" prefWidth="1000.0" styleClass="inner-anchor-pane" />
+         <AnchorPane fx:id="graphCanvas" prefHeight="1500.0" prefWidth="1500.0" styleClass="inner-anchor-pane" />
       </ScrollPane>
    </GridPane>
 </AnchorPane>

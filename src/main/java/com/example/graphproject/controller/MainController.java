@@ -57,6 +57,7 @@ public class MainController implements Initializable {
         try {
             int value = Integer.parseInt(addVertexValueField.getText());
             graphInstance.addVertex(value);
+            addVertexValueField.clear();
             updateGraphCanvas();
         } catch(NumberFormatException numberFormatException) {
             showErrorWindowForIncorrectValues();
@@ -71,6 +72,8 @@ public class MainController implements Initializable {
             int value1 = Integer.parseInt(addEdgeSourceValueField.getText());
             int value2 = Integer.parseInt(addEdgeTargetValueField.getText());
             graphInstance.addEdge(value1, value2);
+            addEdgeSourceValueField.clear();
+            addEdgeTargetValueField.clear();
             updateGraphCanvas();
         } catch(NumberFormatException numberFormatException) {
             showErrorWindowForIncorrectValues();
@@ -84,6 +87,7 @@ public class MainController implements Initializable {
         try {
             int value = Integer.parseInt(removeVertexValueField.getText());
             graphInstance.removeVertex(value);
+            removeVertexValueField.clear();
             updateGraphCanvas();
         } catch(NumberFormatException numberFormatException) {
             showErrorWindowForIncorrectValues();
@@ -98,6 +102,8 @@ public class MainController implements Initializable {
             int value1 = Integer.parseInt(removeEdgeSourceValueField.getText());
             int value2 = Integer.parseInt(removeEdgeTargetValueField.getText());
             graphInstance.removeEdge(value1, value2);
+            removeEdgeSourceValueField.clear();
+            removeEdgeTargetValueField.clear();
             updateGraphCanvas();
         } catch(NumberFormatException numberFormatException) {
             showErrorWindowForIncorrectValues();
@@ -127,6 +133,7 @@ public class MainController implements Initializable {
         clearCanvas();
 
         GraphInstance graphInstance = GraphInstance.getInstance();
+        graphInstance.updateGraphPositions(RADIUS_FOR_CIRCLE);
 
         for (DefaultEdge edge : graphInstance.getGraph().edgeSet()) {
             addEdge(graphInstance.getGraph().getEdgeSource(edge), graphInstance.getGraph().getEdgeTarget(edge));

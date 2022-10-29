@@ -1,10 +1,15 @@
 package com.example.graphproject.model;
 
 import org.jgrapht.Graph;
+import org.jgrapht.alg.drawing.FRLayoutAlgorithm2D;
+import org.jgrapht.alg.drawing.model.Box2D;
+import org.jgrapht.alg.drawing.model.LayoutModel2D;
+import org.jgrapht.alg.drawing.model.MapLayoutModel2D;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleGraph;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class GraphInstance {
     private static final double MAX_WIDTH_OF_PLANE = 1000;
@@ -76,6 +81,18 @@ public class GraphInstance {
 
     public void clearGraph() {
         graph = new SimpleGraph<Vertex, DefaultEdge>(DefaultEdge.class);
+    }
+
+    public void updateGraphPositions(double radius) {
+        FRLayoutAlgorithm2D<Vertex, DefaultEdge> algorithm2D = new FRLayoutAlgorithm2D<>();
+        Box2D box2D = new Box2D(MAX_WIDTH_OF_PLANE, MAX_HEIGHT_OF_PLANE);
+        LayoutModel2D<Vertex> layoutModel2D = new MapLayoutModel2D<>(box2D);
+        algorithm2D.layout(graph, layoutModel2D);
+
+        for (Vertex vertex : graph.vertexSet()) {
+            vertex.setX(layoutModel2D.get(vertex).getX() + radius);
+            vertex.setY(layoutModel2D.get(vertex).getY() + radius);
+        }
     }
 
     public void printGraph() {
