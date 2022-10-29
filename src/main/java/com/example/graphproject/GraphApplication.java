@@ -1,7 +1,5 @@
 package com.example.graphproject;
 
-import com.example.graphproject.model.GraphInstance;
-import com.example.graphproject.model.Vertex;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -9,9 +7,19 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Клас GraphApplication, що наслідується від Application,
+ * який містить класи бібліотеки JavaFX.
+ */
 public class GraphApplication extends Application {
+    /**
+     * Перевизначений метод з класу Application.
+     * Цей метод виконується першим та потрібен для налаштувань вікна
+     */
     @Override
     public void start(Stage stage) throws IOException {
+        // Завантаження файлу main-view.fxml, який містить у собі розмітку вікна.
+        // Також даний файл використовує файл styles.css який містить стилі об'єктів вікна.
         FXMLLoader fxmlLoader = new FXMLLoader(GraphApplication.class.getResource("main-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Graph");
@@ -19,30 +27,7 @@ public class GraphApplication extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) throws Exception {
-        GraphInstance instance = GraphInstance.getInstance();
-
-        instance.addVertex(1);
-        instance.addVertex(2);
-        instance.addVertex(3);
-        instance.addVertex(4);
-        instance.addVertex(5);
-
-        instance.addEdge(1, 2);
-        instance.addEdge(2, 3);
-        instance.addEdge(3, 1);
-        instance.addEdge(4, 5);
-        instance.addEdge(1, 5);
-        instance.addEdge(3, 5);
-        instance.addEdge(2, 5);
-        instance.printGraph();
-
-        for (Vertex vertex : instance.getGraph().vertexSet()) {
-            System.out.println(vertex);
-        }
-
+    public static void main(String[] args) {
         launch();
     }
-
-
 }

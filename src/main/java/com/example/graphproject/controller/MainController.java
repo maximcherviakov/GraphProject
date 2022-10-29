@@ -20,6 +20,10 @@ import org.jgrapht.graph.DefaultEdge;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Клас MainController.
+ * Клас контролеру, який реалізує логіку поведінки елементів вікна
+ */
 public class MainController implements Initializable {
     private final double RADIUS_FOR_CIRCLE = 20;
     private final double CIRCLE_STROKE_WIDTH = 4;
@@ -31,6 +35,8 @@ public class MainController implements Initializable {
 
     private final GraphInstance graphInstance = GraphInstance.getInstance();
 
+    // Поля, які зберігають в собі елементи вікна,
+    // що генеруються з файлу розмітки
     @FXML
     AnchorPane graphCanvas;
     @FXML
@@ -46,12 +52,21 @@ public class MainController implements Initializable {
     @FXML
     TextField removeEdgeTargetValueField;
 
-    // Button handlers
+    /**
+     * Метод ініціалізації, тобто метод який виконується першим в контролері.
+     * Даний метод потрібен для оновлення змісту вікна
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         updateGraphCanvas();
     }
 
+    /**
+     * Обробник події натискання на кнопку "Add vertex".
+     * Коли користувач натискає на дану кнопку, зчитується значення нової вершини
+     * з текстового поля вище та додається до графа.
+     * Якщо така вершина існує, то відкриється повідомлення про це.
+     */
     @FXML
     protected void onAddVertexButtonClick() {
         try {
@@ -66,6 +81,12 @@ public class MainController implements Initializable {
         }
     }
 
+    /**
+     * Обробник події натискання на кнопку "Add edge"
+     * Коли користувач натискає на дану кнопку, зчитується початок та кінець ребра
+     * з текстового поля вище та додається до графа.
+     * Якщо таке ребро існує, то відкриється повідомлення про це.
+     */
     @FXML
     protected void onAddEdgeButtonClick() {
         try {
@@ -82,6 +103,12 @@ public class MainController implements Initializable {
         }
     }
 
+    /**
+     * Обробник події натискання на кнопку "Remove vertex"
+     * Коли користувач натискає на дану кнопку, зчитується значення вершини
+     * з текстового поля вище, та якщо така вершина існує, то видаляє її з графу.
+     * Якщо така вершина не існує, відкриється повідомлення про це.
+     */
     @FXML
     protected void onRemoveVertexButtonClick() {
         try {
@@ -96,6 +123,12 @@ public class MainController implements Initializable {
         }
     }
 
+    /**
+     * Обробник події натискання на кнопку "Remove edge"
+     * Коли користувач натискає на дану кнопку, зчитується початок та кінець ребра
+     * з текстового поля вище та якщо таке ребро існує, то видаляє його з графу.
+     * Якщо таке ребро не існує, то відкриється повідомлення про це.
+     */
     @FXML
     protected void onRemoveEdgeButtonClick() {
         try {
@@ -112,6 +145,13 @@ public class MainController implements Initializable {
         }
     }
 
+    /**
+     * Обробник події натискання на кнопку "Clear graph"
+     * Якщо користувач натисне на кнопку "Clear graph",
+     * то відкриється діалогове вікно, яке запитає підтвердження,
+     * чи дійсно користувач хоче видалити граф, якщо натиснути "Yes", то граф видалиться,
+     * а якщо "No", то не видалиться
+     */
     @FXML
     protected void onClearGraphButtonClick() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Confirmation", ButtonType.YES, ButtonType.CANCEL);
@@ -123,12 +163,17 @@ public class MainController implements Initializable {
         });
     }
 
-    // Other methods
+    /**
+     * Метод, який очищає вміст графу та оновлює панель для візуалізації
+     */
     protected void clearGraph() {
         graphInstance.clearGraph();
         updateGraphCanvas();
     }
 
+    /**
+     * Метод, що оновлює панель для візуалізації відповідно до вмісту графа
+     */
     public void updateGraphCanvas() {
         clearCanvas();
 
@@ -144,10 +189,17 @@ public class MainController implements Initializable {
         }
     }
 
+    /**
+     * Метод, який викликає повідомлення про некоректні дані введені в текстове поле
+     */
     private void showErrorWindowForIncorrectValues() {
-        showErrorWindow("Incorrect value in the field!\nFill proper double value");
+        showErrorWindow("Incorrect value in the field!\nFill proper integer value");
     }
 
+    /**
+     * Метод, що викликає повідомлення про помилку
+     * @param message - повідомлення
+     */
     private void showErrorWindow(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
@@ -156,10 +208,18 @@ public class MainController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Метод, який очищує вміст графа
+     */
     private void clearCanvas() {
         graphCanvas.getChildren().clear();
     }
 
+    /**
+     * Метод, що будує ребро у вікні
+     * @param vertex1 - початок ребра
+     * @param vertex2 - кінець ребра
+     */
     private void addEdge(Vertex vertex1, Vertex vertex2) {
         Line line = new Line(vertex1.getX(), vertex1.getY(), vertex2.getX(), vertex2.getY());
         line.setStrokeWidth(LINE_STROKE_WIDTH);
@@ -167,6 +227,10 @@ public class MainController implements Initializable {
         graphCanvas.getChildren().add(line);
     }
 
+    /**
+     * Метод, що будує вершину у вікні
+     * @param vertex - вершина
+     */
     private void addNode(Vertex vertex) {
         Circle circle = createCircle();
 
@@ -178,6 +242,9 @@ public class MainController implements Initializable {
         graphCanvas.getChildren().add(stack);
     }
 
+    /**
+     * @return графічний елемент кола
+     */
     private Circle createCircle() {
         Circle circle = new Circle(RADIUS_FOR_CIRCLE, COLOR_FOR_CIRCLE_BACKGROUND);
         circle.setStrokeWidth(CIRCLE_STROKE_WIDTH);
@@ -186,6 +253,10 @@ public class MainController implements Initializable {
         return circle;
     }
 
+    /**
+     * @param value - текст
+     * @return графічний елемент тексту
+     */
     private Text createText(String value) {
         Text text = new Text(value);
         text.setFont(new Font(FONT, FONT_SIZE));

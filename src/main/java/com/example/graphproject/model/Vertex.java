@@ -1,9 +1,12 @@
 package com.example.graphproject.model;
 
-import javafx.geometry.Point2D;
-
 import java.util.Objects;
 
+/**
+ * Клас Vertex.
+ * Описує вершину графа.
+ * Зберагає значення вершини та її координати.
+ */
 public class Vertex {
     private int value;
     private double x;
@@ -17,15 +20,6 @@ public class Vertex {
         this.value = value;
         this.x = x;
         this.y = y;
-    }
-
-    public Point2D getPosition() {
-        return new Point2D(x, y);
-    }
-
-    public void setPosition(Point2D point2D) {
-        x = point2D.getX();
-        y = point2D.getY();
     }
 
     public int getValue() {

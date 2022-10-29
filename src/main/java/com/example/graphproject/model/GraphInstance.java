@@ -11,6 +11,10 @@ import org.jgrapht.graph.SimpleGraph;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Клас GraphInstance - клас, що використовує патерн singleton.
+ * Потрібен для зберігання графа та виконання дій над ним
+ */
 public class GraphInstance {
     private static final double MAX_WIDTH_OF_PLANE = 1000;
     private static final double MAX_HEIGHT_OF_PLANE = 1000;
@@ -19,7 +23,7 @@ public class GraphInstance {
     private static GraphInstance instance;
 
     private GraphInstance() {
-
+        
     }
 
     public static GraphInstance getInstance() {
@@ -80,9 +84,14 @@ public class GraphInstance {
     }
 
     public void clearGraph() {
-        graph = new SimpleGraph<Vertex, DefaultEdge>(DefaultEdge.class);
+        graph = new SimpleGraph<>(DefaultEdge.class);
     }
 
+    /**
+     * Даний метод обраховує координати вершин для силовим алгоритмом побудови графа.
+     * Він потрібен, щоб граф приймав гарний та зрозумілий вигляд
+     * @param radius - радіус кола, що позначає вершину
+     */
     public void updateGraphPositions(double radius) {
         FRLayoutAlgorithm2D<Vertex, DefaultEdge> algorithm2D = new FRLayoutAlgorithm2D<>();
         Box2D box2D = new Box2D(MAX_WIDTH_OF_PLANE, MAX_HEIGHT_OF_PLANE);
