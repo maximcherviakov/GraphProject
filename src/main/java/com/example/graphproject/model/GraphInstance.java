@@ -16,8 +16,11 @@ import java.util.Arrays;
  * Потрібен для зберігання графа та виконання дій над ним
  */
 public class GraphInstance {
-    private static final double MAX_WIDTH_OF_PLANE = 1000;
-    private static final double MAX_HEIGHT_OF_PLANE = 1000;
+    private static final int CRITICAL_NUMBER_OF_VERTICES = 10;
+    private static final double INITIAL_WIDTH_OF_PLANE = 500;
+    private static final double INITIAL_HEIGHT_OF_PLANE = 500;
+    private static double WIDTH_OF_PLANE = 500;
+    private static double HEIGHT_OF_PLANE = 500;
 
     private static SimpleGraph<Vertex, DefaultEdge> graph = new SimpleGraph<>(DefaultEdge.class);
     private static GraphInstance instance;
@@ -38,7 +41,10 @@ public class GraphInstance {
     }
 
     public void addVertex(Integer value) throws IllegalArgumentException {
-        Vertex vertex = new Vertex(value, Math.random() * MAX_WIDTH_OF_PLANE, Math.random() * MAX_HEIGHT_OF_PLANE);
+        WIDTH_OF_PLANE = INITIAL_WIDTH_OF_PLANE + 0.5 * INITIAL_WIDTH_OF_PLANE * (graph.vertexSet().size() / 10);
+        HEIGHT_OF_PLANE = INITIAL_HEIGHT_OF_PLANE + 0.5 * INITIAL_HEIGHT_OF_PLANE * (graph.vertexSet().size() / 10);
+
+        Vertex vertex = new Vertex(value, Math.random() * WIDTH_OF_PLANE, Math.random() * HEIGHT_OF_PLANE);
         if (!graph.containsVertex(vertex)) {
             graph.addVertex(vertex);
         } else {
@@ -94,7 +100,7 @@ public class GraphInstance {
      */
     public void updateGraphPositions(double radius) {
         FRLayoutAlgorithm2D<Vertex, DefaultEdge> algorithm2D = new FRLayoutAlgorithm2D<>();
-        Box2D box2D = new Box2D(MAX_WIDTH_OF_PLANE, MAX_HEIGHT_OF_PLANE);
+        Box2D box2D = new Box2D(WIDTH_OF_PLANE, HEIGHT_OF_PLANE);
         LayoutModel2D<Vertex> layoutModel2D = new MapLayoutModel2D<>(box2D);
         algorithm2D.layout(graph, layoutModel2D);
 

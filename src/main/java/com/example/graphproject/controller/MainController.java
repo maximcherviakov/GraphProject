@@ -178,7 +178,9 @@ public class MainController implements Initializable {
         clearCanvas();
 
         GraphInstance graphInstance = GraphInstance.getInstance();
-        graphInstance.updateGraphPositions(RADIUS_FOR_CIRCLE);
+        if (graphInstance.getGraph().vertexSet().size() > 1) {
+            graphInstance.updateGraphPositions(RADIUS_FOR_CIRCLE);
+        }
 
         for (DefaultEdge edge : graphInstance.getGraph().edgeSet()) {
             addEdge(graphInstance.getGraph().getEdgeSource(edge), graphInstance.getGraph().getEdgeTarget(edge));
