@@ -41,8 +41,8 @@ public class GraphInstance {
     }
 
     public void addVertex(Integer value) throws IllegalArgumentException {
-        WIDTH_OF_PLANE = INITIAL_WIDTH_OF_PLANE + 0.5 * INITIAL_WIDTH_OF_PLANE * (graph.vertexSet().size() / 10);
-        HEIGHT_OF_PLANE = INITIAL_HEIGHT_OF_PLANE + 0.5 * INITIAL_HEIGHT_OF_PLANE * (graph.vertexSet().size() / 10);
+        WIDTH_OF_PLANE = INITIAL_WIDTH_OF_PLANE + 0.5 * INITIAL_WIDTH_OF_PLANE * (graph.vertexSet().size() / CRITICAL_NUMBER_OF_VERTICES);
+        HEIGHT_OF_PLANE = INITIAL_HEIGHT_OF_PLANE + 0.5 * INITIAL_HEIGHT_OF_PLANE * (graph.vertexSet().size() / CRITICAL_NUMBER_OF_VERTICES);
 
         Vertex vertex = new Vertex(value, Math.random() * WIDTH_OF_PLANE, Math.random() * HEIGHT_OF_PLANE);
         if (!graph.containsVertex(vertex)) {

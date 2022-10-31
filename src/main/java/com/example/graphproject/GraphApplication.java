@@ -1,6 +1,5 @@
 package com.example.graphproject;
 
-import com.example.graphproject.model.GraphInstance;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -31,11 +30,6 @@ public class GraphApplication extends Application {
     }
 
     public static void main(String[] args) {
-        GraphInstance instance = GraphInstance.getInstance();
-        for (int i = 0; i < 10; i++) {
-            instance.addVertex(i);
-        }
-
         launch();
     }
 }
