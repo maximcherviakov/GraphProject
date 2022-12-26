@@ -1,5 +1,7 @@
 package com.example.graphproject.controller;
 
+import com.example.graphproject.model.GraphInstance;
+import com.example.graphproject.model.Vertex;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -10,13 +12,13 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
-import com.example.graphproject.model.*;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextBoundsType;
 import org.jgrapht.graph.DefaultEdge;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -25,6 +27,7 @@ import java.util.ResourceBundle;
  * Клас контролеру, який реалізує логіку поведінки елементів вікна
  */
 public class MainController implements Initializable {
+    private static boolean updated = false;
     private final double RADIUS_FOR_CIRCLE = 20;
     private final double CIRCLE_STROKE_WIDTH = 4;
     private final double LINE_STROKE_WIDTH = 3;
@@ -58,7 +61,17 @@ public class MainController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            GraphSaver.loadGraphFromFile();
+        } catch (Exception exception) {
+            showErrorWindow(exception.getMessage());
+        }
+
         updateGraphCanvas();
+    }
+
+    public static boolean isUpdated() {
+        return updated;
     }
 
     /**
@@ -74,6 +87,7 @@ public class MainController implements Initializable {
             graphInstance.addVertex(value);
             addVertexValueField.clear();
             updateGraphCanvas();
+            updated = true;
         } catch(NumberFormatException numberFormatException) {
             showErrorWindowForIncorrectValues();
         } catch (IllegalArgumentException illegalArgumentException) {
@@ -96,6 +110,7 @@ public class MainController implements Initializable {
             addEdgeSourceValueField.clear();
             addEdgeTargetValueField.clear();
             updateGraphCanvas();
+            updated = true;
         } catch(NumberFormatException numberFormatException) {
             showErrorWindowForIncorrectValues();
         } catch (IllegalArgumentException illegalArgumentException) {
@@ -116,6 +131,7 @@ public class MainController implements Initializable {
             graphInstance.removeVertex(value);
             removeVertexValueField.clear();
             updateGraphCanvas();
+            updated = true;
         } catch(NumberFormatException numberFormatException) {
             showErrorWindowForIncorrectValues();
         } catch (IllegalArgumentException illegalArgumentException) {
@@ -138,6 +154,7 @@ public class MainController implements Initializable {
             removeEdgeSourceValueField.clear();
             removeEdgeTargetValueField.clear();
             updateGraphCanvas();
+            updated = true;
         } catch(NumberFormatException numberFormatException) {
             showErrorWindowForIncorrectValues();
         } catch (IllegalArgumentException illegalArgumentException) {
@@ -159,8 +176,23 @@ public class MainController implements Initializable {
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.YES) {
                 clearGraph();
+                updated = true;
             }
         });
+    }
+
+    /**
+     * Обробник події натискання на кнопку "Save"
+     * Якщо користувач натисне на кнопку "Save",
+     * то граф збережеться до файлу graph.json
+     */
+    @FXML
+    protected void onSaveButtonClick() {
+        try {
+            GraphSaver.saveGraph();
+        } catch (IOException e) {
+            showErrorWindow(e.getMessage());
+        }
     }
 
     /**
@@ -202,7 +234,7 @@ public class MainController implements Initializable {
      * Метод, що викликає повідомлення про помилку
      * @param message - повідомлення
      */
-    private void showErrorWindow(String message) {
+    public static void showErrorWindow(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText("Error");

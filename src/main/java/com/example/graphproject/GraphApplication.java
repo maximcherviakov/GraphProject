@@ -1,8 +1,12 @@
 package com.example.graphproject;
 
+import com.example.graphproject.controller.GraphSaver;
+import com.example.graphproject.controller.MainController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -31,5 +35,23 @@ public class GraphApplication extends Application {
 
     public static void main(String[] args) {
         launch();
+    }
+
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+        if (MainController.isUpdated()) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Confirmation", ButtonType.YES, ButtonType.CANCEL);
+            alert.setContentText("Do you want to save graph?");
+            alert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.YES) {
+                    try {
+                        GraphSaver.saveGraph();
+                    } catch (Exception e) {
+                        MainController.showErrorWindow(e.getMessage());
+                    }
+                }
+            });
+        }
     }
 }

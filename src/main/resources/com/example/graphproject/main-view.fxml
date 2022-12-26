@@ -148,15 +148,25 @@
             <padding>
                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
             </padding>
-            <Button alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClearGraphButtonClick" styleClass="remove-button" text="Clear graph">
-               <VBox.margin>
-                  <Insets top="40.0" />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
-               </padding>
-            </Button>
+            <children>
+               <Button alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSaveButtonClick" text="Save">
+                  <padding>
+                     <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                  </padding>
+                  <VBox.margin>
+                     <Insets top="10.0" />
+                  </VBox.margin>
+               </Button>
+            </children>
          </VBox>
+         <Button alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClearGraphButtonClick" styleClass="remove-button" text="Clear graph">
+            <VBox.margin>
+               <Insets top="40.0" />
+            </VBox.margin>
+            <padding>
+               <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+            </padding>
+         </Button>
       </VBox>
       <ScrollPane prefHeight="200.0" prefWidth="200.0" stylesheets="@styles.css" GridPane.columnIndex="1" GridPane.rowIndex="0">
          <AnchorPane fx:id="graphCanvas" prefHeight="1200.0" prefWidth="1500.0" styleClass="inner-anchor-pane" />

@@ -19,14 +19,13 @@ public class GraphInstance {
     private static final int CRITICAL_NUMBER_OF_VERTICES = 10;
     private static final double INITIAL_WIDTH_OF_PLANE = 500;
     private static final double INITIAL_HEIGHT_OF_PLANE = 500;
-    private static double WIDTH_OF_PLANE = 500;
-    private static double HEIGHT_OF_PLANE = 500;
+    private static double widthOfPlane = INITIAL_WIDTH_OF_PLANE;
+    private static double heightOfPlane = INITIAL_HEIGHT_OF_PLANE;
 
     private static SimpleGraph<Vertex, DefaultEdge> graph = new SimpleGraph<>(DefaultEdge.class);
     private static GraphInstance instance;
 
     private GraphInstance() {
-        
     }
 
     public static GraphInstance getInstance() {
@@ -37,14 +36,24 @@ public class GraphInstance {
     }
 
     public Graph<Vertex, DefaultEdge> getGraph() {
-        return graph;
+        return (Graph<Vertex, DefaultEdge>) graph.clone();
     }
 
     public void addVertex(Integer value) throws IllegalArgumentException {
-        WIDTH_OF_PLANE = INITIAL_WIDTH_OF_PLANE + 0.5 * INITIAL_WIDTH_OF_PLANE * (graph.vertexSet().size() / CRITICAL_NUMBER_OF_VERTICES);
-        HEIGHT_OF_PLANE = INITIAL_HEIGHT_OF_PLANE + 0.5 * INITIAL_HEIGHT_OF_PLANE * (graph.vertexSet().size() / CRITICAL_NUMBER_OF_VERTICES);
+        widthOfPlane = INITIAL_WIDTH_OF_PLANE +
+                0.5 * INITIAL_WIDTH_OF_PLANE * (graph.vertexSet().size() / CRITICAL_NUMBER_OF_VERTICES);
+        heightOfPlane = INITIAL_HEIGHT_OF_PLANE +
+                0.5 * INITIAL_HEIGHT_OF_PLANE * (graph.vertexSet().size() / CRITICAL_NUMBER_OF_VERTICES);
 
-        Vertex vertex = new Vertex(value, Math.random() * WIDTH_OF_PLANE, Math.random() * HEIGHT_OF_PLANE);
+        Vertex vertex = new Vertex(value, Math.random() * widthOfPlane, Math.random() * heightOfPlane);
+        if (!graph.containsVertex(vertex)) {
+            graph.addVertex(vertex);
+        } else {
+            throw new IllegalArgumentException("Vertex with this value is already exist!");
+        }
+    }
+
+    public void addVertex(Vertex vertex) {
         if (!graph.containsVertex(vertex)) {
             graph.addVertex(vertex);
         } else {
@@ -96,31 +105,18 @@ public class GraphInstance {
     /**
      * Даний метод обраховує координати вершин для силовим алгоритмом побудови графа.
      * Він потрібен, щоб граф приймав гарний та зрозумілий вигляд
+     *
      * @param radius - радіус кола, що позначає вершину
      */
     public void updateGraphPositions(double radius) {
         FRLayoutAlgorithm2D<Vertex, DefaultEdge> algorithm2D = new FRLayoutAlgorithm2D<>();
-        Box2D box2D = new Box2D(WIDTH_OF_PLANE, HEIGHT_OF_PLANE);
+        Box2D box2D = new Box2D(widthOfPlane, heightOfPlane);
         LayoutModel2D<Vertex> layoutModel2D = new MapLayoutModel2D<>(box2D);
         algorithm2D.layout(graph, layoutModel2D);
 
         for (Vertex vertex : graph.vertexSet()) {
             vertex.setX(layoutModel2D.get(vertex).getX() + radius);
             vertex.setY(layoutModel2D.get(vertex).getY() + radius);
-        }
-    }
-
-    public void printGraph() {
-        System.out.println("Vertices:");
-
-        for (Vertex vertex : graph.vertexSet()) {
-            System.out.println(vertex.toString());
-        }
-
-        System.out.println("Edges:");
-
-        for (DefaultEdge edge : graph.edgeSet()) {
-            System.out.println(edge.toString());
         }
     }
 }

@@ -1,0 +1,65 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class GraphApplication {
+  + GraphApplication(): 
+  + main(String[]): void
+  + start(Stage): void
+  + stop(): void
+}
+class GraphInstance {
+  - GraphInstance(): 
+  + removeEdge(Integer, Integer): void
+  + addEdge(Integer, Integer): void
+  + clearGraph(): void
+  + addVertex(Integer): void
+  + getGraph(): Graph<Vertex, DefaultEdge>
+  + updateGraphPositions(double): void
+  + removeVertex(Integer): void
+  + getInstance(): GraphInstance
+  + addVertex(Vertex): void
+}
+class GraphSaver {
+  - GraphSaver(): 
+  + saveGraph(): void
+  + loadGraphFromFile(): void
+}
+class MainController {
+  + MainController(): 
+  # onClearGraphButtonClick(): void
+  - createCircle(): Circle
+  - createText(String): Text
+  - clearCanvas(): void
+  # onSaveButtonClick(): void
+  - addEdge(Vertex, Vertex): void
+  - showErrorWindowForIncorrectValues(): void
+  # onAddVertexButtonClick(): void
+  + updateGraphCanvas(): void
+  + initialize(URL, ResourceBundle): void
+  # onRemoveEdgeButtonClick(): void
+  + isUpdated(): boolean
+  # onAddEdgeButtonClick(): void
+  + showErrorWindow(String): void
+  # clearGraph(): void
+  - addNode(Vertex): void
+  # onRemoveVertexButtonClick(): void
+}
+class Vertex {
+  + Vertex(int, double, double): 
+  + Vertex(int): 
+  + getValue(): int
+  + setY(double): void
+  + equals(Object): boolean
+  + getY(): double
+  + hashCode(): int
+  + getX(): double
+  + setX(double): void
+  + toString(): String
+  + setValue(int): void
+}
+
+MainController   "1" *-[#595959,plain]-> "graphInstance\n1" GraphInstance    
+@enduml
