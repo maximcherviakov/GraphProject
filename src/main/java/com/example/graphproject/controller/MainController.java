@@ -190,6 +190,7 @@ public class MainController implements Initializable {
     protected void onSaveButtonClick() {
         try {
             GraphSaver.saveGraph();
+            updated = false;
         } catch (IOException e) {
             showErrorWindow(e.getMessage());
         }
