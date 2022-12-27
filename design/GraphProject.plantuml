@@ -1,6 +1,5 @@
 @startuml
 
-!theme plain
 top to bottom direction
 skinparam linetype ortho
 
@@ -48,6 +47,9 @@ class MainController {
   # onRemoveVertexButtonClick(): void
 }
 class Vertex {
+  - value: int
+  - x: double
+  - y: double
   + Vertex(int, double, double): 
   + Vertex(int): 
   + getValue(): int
@@ -61,5 +63,10 @@ class Vertex {
   + setValue(int): void
 }
 
-MainController   "1" *-[#595959,plain]-> "graphInstance\n1" GraphInstance    
+GraphApplication -right-> MainController : uses
+MainController *--> GraphInstance : uses
+GraphInstance -right-> Vertex : uses
+MainController --> GraphSaver : uses
+GraphApplication --> GraphSaver : uses
+
 @enduml

@@ -1,0 +1,28 @@
+@startuml
+
+left to right direction
+
+:User:
+:graph.json: as json
+
+rectangle GraphProject {
+    usecase "Add vertex" as UC1
+    usecase "Add edge" as UC2
+    usecase "Remove vertex" as UC3
+    usecase "Remove edge" as UC4
+    usecase "Clear graph" as UC5
+    usecase "Save graph" as UC6
+    usecase "Exit app" as UC7
+}
+
+User -- UC1
+User -- UC2
+User -- UC3
+User -- UC4
+User -- UC5
+User -- UC6
+User -- UC7
+UC6 -down- json
+UC7 --> UC6 #line.dashed : include
+
+@enduml
